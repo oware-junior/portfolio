@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Computer Engineering Student at GCTU | Mobile App Developer | Flutter Specialist">
+    <title>Emmanuel Oware Junior Asirifi - Portfolio | Computer Engineer & Mobile Developer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --accent: #ec4899;
+            --accent-light: #f472b6;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        [data-theme="dark"] {
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-alt: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border: #334155;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --gradient-subtle: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+        }
+
+        [data-theme="dark"] nav.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+            background: var(--gradient-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 420px;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center 0%;
+            box-shadow: var(--shadow-lg);
+            margin: 0 auto;
+            display: block;
+            border: 3px solid var(--primary);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .tag {
+            background: var(--surface-alt);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            background: var(--surface-alt);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            border: 1px solid var(--primary);
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.85rem 1.2rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-info {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--surface-alt);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            animation: slideIn 0.3s ease forwards;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .deployment-guide {
+            background: var(--surface-alt);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .deployment-guide h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .deployment-guide ol {
+            text-align: left;
+            max-width: 600px;
+            margin: 1rem auto;
+            color: var(--text-secondary);
+        }
+
+        .deployment-guide li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .deployment-guide code {
+            background: var(--background);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border);
+                padding: 1rem 0;
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 100px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .success-message {
+                right: 10px;
+                left: 10px;
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav .container {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .hero .tagline {
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Form Validation */
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="logo">💻</div>
+            <ul id="menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-name">Emmanuel Oware Junior Asirifi</p>
+            <h1>Computer Engineer & Mobile Developer</h1>
+            <p class="subtitle">GCTU | Flutter Specialist | IoT Enthusiast</p>
+            <p class="tagline">Bridging mobile software engineering with hardware systems and scalable database architecture</p>
+            <div class="hero-ctas">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                <a href="https://drive.google.com/file/d/1f_0tjlcAKGJlc_15GgnGcN5YduBSml-L/view?usp=sharing" class="btn btn-secondary" target="_blank">Download CV</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a Computer Engineering student at Ghana Communication Technology University (GCTU) passionate about building practical, cross-platform mobile apps and embedded systems. My core focus centers on mobile development with Flutter, turning complex UI concepts into high-performance, responsive applications.</p>
+                    <p>With a foundation spanning hardware, networking, and low-level systems, I build software with architectural depth and efficiency. Whether it's designing responsive interfaces or optimizing algorithms at the assembly level, I approach every challenge with precision and creativity.</p>
+                    <p>Currently exploring the intersection of AI-assisted development, automation workflows, and scalable backend architecture to create end-to-end solutions that solve real-world problems.</p>
+                </div>
+                <img src="https://i.postimg.cc/Fz0G1JzG/profile.jpg" alt="Emmanuel Oware Junior Asirifi" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Core Skills & Tech Stack</h2>
+            <p class="section-subtitle">Expertise across mobile, systems, databases, and modern development tools</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>📱 Mobile Development</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag">Android Studio</span>
+                        <span class="tag">Cross-Platform</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>⚙️ Low-Level & Systems</h3>
+                    <div class="skill-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Assembly</span>
+                        <span class="tag">Arduino</span>
+                        <span class="tag">IoT Prototyping</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>🗄️ Databases & Networking</h3>
+                    <div class="skill-tags">
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Schema Design</span>
+                        <span class="tag">Cisco Networking</span>
+                        <span class="tag">OSI/TCP-IP</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>🔧 Automation & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="tag">n8n</span>
+                        <span class="tag">Git</span>
+                        <span class="tag">AI Workflows</span>
+                        <span class="tag">REST APIs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Showcasing my work across mobile, systems, and backend development</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">📱</div>
+                    <div class="project-content">
+                        <h3>Cross-Platform Mobile Apps</h3>
+                        <p class="project-description">Building responsive, feature-rich mobile applications using Flutter and Dart with clean architecture patterns, state management, and native platform integration.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Flutter</span>
+                            <span class="project-tag">Dart</span>
+                            <span class="project-tag">UI/UX</span>
+                        </div>
+                        <a href="https://github.com/oware-junior" class="project-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🗄️</div>
+                    <div class="project-content">
+                        <h3>Database Management Systems</h3>
+                        <p class="project-description">Designing and implementing relational database schemas with optimization techniques, query performance tuning, and data integrity practices for scalable applications.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">Optimization</span>
+                        </div>
+                        <a href="https://github.com/oware-junior" class="project-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🔌</div>
+                    <div class="project-content">
+                        <h3>Embedded IoT Sensor Projects</h3>
+                        <p class="project-description">Developing Arduino-based IoT solutions with sensor integration, real-time data processing, and wireless communication protocols for smart systems and automation.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Arduino</span>
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">Sensors</span>
+                        </div>
+                        <a href="https://github.com/oware-junior" class="project-link" target="_blank">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Let's collaborate on your next great project</p>
+            <div class="contact-wrapper">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <span class="error-message">Please enter your name</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message">Please enter a valid email</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="Job Offer">Job Offer</option>
+                            <option value="Internship">Internship Opportunity</option>
+                            <option value="Business Inquiry">Business Inquiry</option>
+                            <option value="Collaboration">Collaboration</option>
+                            <option value="General">General Inquiry</option>
+                        </select>
+                        <span class="error-message">Please select a subject</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                        <span class="error-message">Please enter your message</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <a href="mailto:owarejuniorgh@gmail.com" class="contact-link">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <small>owarejuniorgh@gmail.com</small>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/oware-junior-544099414" class="contact-link" target="_blank">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <strong>LinkedIn</strong><br>
+                            <small>Connect with me</small>
+                        </div>
+                    </a>
+                    <a href="https://github.com/oware-junior" class="contact-link" target="_blank">
+                        <div class="contact-icon">🐙</div>
+                        <div>
+                            <strong>GitHub</strong><br>
+                            <small>View my code</small>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/233502776365" class="contact-link" target="_blank">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <strong>WhatsApp</strong><br>
+                            <small>Message me directly</small>
+                        </div>
+                    </a>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/oware-junior-544099414" class="social-btn" title="LinkedIn" target="_blank">💼</a>
+                        <a href="https://github.com/oware-junior" class="social-btn" title="GitHub" target="_blank">🐙</a>
+                        <a href="mailto:owarejuniorgh@gmail.com" class="social-btn" title="Email">✉️</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Emmanuel Oware Junior Asirifi.</p>
+        </div>
+    </footer>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        ✓ Message sent successfully! I'll get back to you soon.
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('#menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Form Validation & Submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validation
+            let isValid = true;
+            const formGroups = contactForm.querySelectorAll('.form-group');
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, textarea, select');
+                if (!input.value.trim()) {
+                    group.classList.add('error');
+                    isValid = false;
+                } else {
+                    group.classList.remove('error');
+                }
+
+                if (input.type === 'email' && input.value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(input.value)) {
+                        group.classList.add('error');
+                        isValid = false;
+                    }
+                }
+            });
+
+            if (!isValid) return;
+
+            // Submit to Formspree
+            const formData = new FormData(contactForm);
+            try {
+                const response = await fetch('https://formspree.io/f/xaewpyyb', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    contactForm.reset();
+                    successMessage.classList.add('show');
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                // Fallback for demonstration
+                console.log('Form submission would be sent to Formspree');
+                contactForm.reset();
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            }
+        });
+
+        // Fade in elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
