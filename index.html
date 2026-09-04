@@ -18,63 +18,118 @@
             --primary-dark: #4f46e5;
             --accent: #ec4899;
             --accent-light: #f472b6;
-            --background: #ffffff;
-            --surface: #f8fafc;
-            --surface-alt: #f1f5f9;
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            --border: #e2e8f0;
-            --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-            --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.12);
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
-            --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            
+            --bg-base: #f1f5f9;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-bg-hover: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-border-hover: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            --glass-shadow-hover: 0 16px 40px 0 rgba(31, 38, 135, 0.16);
+            --glass-inset: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+            --blob-1: rgba(99, 102, 241, 0.25);
+            --blob-2: rgba(236, 72, 153, 0.2);
+            --blob-3: rgba(56, 189, 248, 0.2);
         }
 
         [data-theme="dark"] {
-            --background: #0f172a;
-            --surface: #1e293b;
-            --surface-alt: #334155;
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
             --text-muted: #64748b;
-            --border: #334155;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
-            --gradient-subtle: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            
+            --bg-base: #0b0f19;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg-hover: rgba(255, 255, 255, 0.09);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-hover: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --glass-shadow-hover: 0 16px 40px 0 rgba(0, 0, 0, 0.55);
+            --glass-inset: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+            --blob-1: rgba(99, 102, 241, 0.35);
+            --blob-2: rgba(236, 72, 153, 0.28);
+            --blob-3: rgba(56, 189, 248, 0.22);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--background);
+            background-color: var(--bg-base);
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        .ambient-canvas {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.8;
+            will-change: transform;
+        }
+
+        .blob-1 {
+            width: 550px;
+            height: 550px;
+            top: -100px;
+            left: -100px;
+            background: var(--blob-1);
+            animation: driftBlob 22s infinite alternate ease-in-out;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            top: 40%;
+            right: -120px;
+            background: var(--blob-2);
+            animation: driftBlob 18s infinite alternate-reverse ease-in-out;
+        }
+
+        .blob-3 {
+            width: 600px;
+            height: 600px;
+            bottom: -150px;
+            left: 20%;
+            background: var(--blob-3);
+            animation: driftBlob 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes driftBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.08); }
+            100% { transform: translate(-40px, 70px) scale(0.95); }
+        }
+
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
             z-index: 1000;
             transition: all 0.3s ease;
         }
 
-        [data-theme="dark"] nav {
-            background: rgba(15, 23, 42, 0.7);
-        }
-
         nav.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: var(--shadow);
-        }
-
-        [data-theme="dark"] nav.scrolled {
-            background: rgba(15, 23, 42, 0.95);
+            background: var(--glass-bg-hover);
+            box-shadow: var(--glass-shadow-hover);
         }
 
         nav .container {
@@ -127,19 +182,26 @@
         }
 
         .theme-toggle {
-            background: none;
-            border: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
             color: var(--text-primary);
-            transition: transform 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: var(--glass-inset);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .theme-toggle:hover {
-            transform: rotate(20deg);
+            transform: rotate(20deg) scale(1.05);
+            border-color: var(--glass-border-hover);
         }
 
         .menu-toggle {
@@ -151,71 +213,51 @@
             color: var(--text-primary);
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding-top: 80px;
-            background: var(--gradient-subtle);
             position: relative;
-            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            left: -5%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .hero-content {
+        .hero-glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), var(--glass-inset);
+            border-radius: 28px;
+            padding: 4rem 2.5rem;
+            max-width: 860px;
+            text-align: center;
             position: relative;
             z-index: 1;
-            text-align: center;
-            max-width: 800px;
         }
 
         .hero-name {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 0.5rem;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            opacity: 0.9;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2.3rem, 7vw, 3.8rem);
             font-weight: 800;
             margin-bottom: 1rem;
-            line-height: 1.1;
+            line-height: 1.15;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -238,7 +280,7 @@
 
         .hero-ctas {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -248,7 +290,6 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            border: 2px solid;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 1rem;
@@ -258,31 +299,36 @@
 
         .btn-primary {
             background: var(--gradient-primary);
-            border-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            border: 1px solid transparent;
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.45);
         }
 
         .btn-secondary {
-            background: transparent;
-            border-color: var(--primary);
-            color: var(--primary);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            box-shadow: var(--glass-inset), var(--glass-shadow);
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-hover);
             transform: translateY(-2px);
+            color: var(--primary);
         }
 
-        /* Sections */
         section {
             padding: 6rem 0;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
@@ -297,10 +343,19 @@
             color: var(--text-secondary);
             text-align: center;
             max-width: 600px;
-            margin: 0 auto 3rem;
+            margin: 0 auto 3.5rem;
         }
 
-        /* About Section */
+        .about-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), var(--glass-inset);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -311,7 +366,7 @@
         .about-text p {
             font-size: 1.1rem;
             color: var(--text-secondary);
-            line-height: 1.9;
+            line-height: 1.85;
             margin-bottom: 1.5rem;
         }
 
@@ -321,32 +376,34 @@
             border-radius: 20px;
             object-fit: cover;
             object-position: center 0%;
-            box-shadow: var(--shadow-lg);
             margin: 0 auto;
             display: block;
-            border: 3px solid var(--primary);
+            border: 2px solid var(--glass-border-hover);
+            box-shadow: var(--glass-shadow-hover);
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
         }
 
         .skill-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), var(--glass-inset);
+            border-radius: 20px;
+            padding: 2.2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
+            transform: translateY(-6px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--glass-shadow-hover);
+            background: var(--glass-bg-hover);
         }
 
         .skill-card h3 {
@@ -362,23 +419,25 @@
         }
 
         .tag {
-            background: var(--surface-alt);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: var(--text-primary);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
-            border: 1px solid var(--border);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-inset);
             transition: all 0.3s ease;
         }
 
         .tag:hover {
             background: var(--primary);
-            color: white;
+            color: #ffffff;
             border-color: var(--primary);
         }
 
-        /* Projects Section */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -386,19 +445,23 @@
         }
 
         .project-card {
-            background: var(--surface);
-            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), var(--glass-inset);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
         .project-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--glass-shadow-hover);
+            background: var(--glass-bg-hover);
         }
 
         .project-image {
@@ -408,7 +471,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.2rem;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .project-content {
@@ -438,11 +502,12 @@
 
         .project-tag {
             font-size: 0.75rem;
-            background: var(--surface-alt);
+            background: rgba(99, 102, 241, 0.12);
             color: var(--primary);
             padding: 0.4rem 0.8rem;
             border-radius: 15px;
-            border: 1px solid var(--primary);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-weight: 500;
         }
 
         .project-link {
@@ -456,15 +521,24 @@
         }
 
         .project-link:hover {
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
-        /* Contact Section */
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
             align-items: start;
+        }
+
+        .contact-form-card, .contact-info {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), var(--glass-inset);
+            border-radius: 20px;
+            padding: 2.5rem;
         }
 
         .contact-form {
@@ -488,13 +562,27 @@
         .form-group textarea,
         .form-group select {
             padding: 0.85rem 1.2rem;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             color: var(--text-primary);
             font-family: inherit;
             font-size: 1rem;
+            box-shadow: var(--glass-inset);
             transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea,
+        [data-theme="dark"] .form-group select {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group select option {
+            background: var(--bg-base);
+            color: var(--text-primary);
         }
 
         .form-group input:focus,
@@ -502,19 +590,13 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+            background: var(--glass-bg-hover);
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 150px;
-        }
-
-        .contact-info {
-            background: var(--surface);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 1px solid var(--border);
+            min-height: 140px;
         }
 
         .contact-info h3 {
@@ -529,7 +611,7 @@
             margin-bottom: 1.5rem;
             text-decoration: none;
             color: var(--text-primary);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .contact-link:hover {
@@ -537,15 +619,16 @@
         }
 
         .contact-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: #ffffff;
             font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .social-links {
@@ -556,11 +639,14 @@
         }
 
         .social-btn {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: var(--surface-alt);
-            border: 2px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-inset);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -572,37 +658,43 @@
 
         .social-btn:hover {
             background: var(--primary);
-            color: white;
+            color: #ffffff;
             border-color: var(--primary);
             transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
         }
 
-        /* Success Message */
         .success-message {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #10b981;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow-lg);
+            top: 24px;
+            right: 24px;
+            background: rgba(16, 185, 129, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: var(--glass-shadow-hover);
+            color: #ffffff;
+            padding: 1rem 1.8rem;
+            border-radius: 14px;
             z-index: 2000;
-            animation: slideIn 0.3s ease forwards;
             display: none;
         }
 
         .success-message.show {
             display: block;
+            animation: slideIn 0.35s ease forwards;
         }
 
-        /* Footer */
         footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--glass-border);
             padding: 3rem 0;
             text-align: center;
             color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
         }
 
         .footer-content {
@@ -611,54 +703,9 @@
             padding: 0 2rem;
         }
 
-        .deployment-guide {
-            background: var(--surface-alt);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 1px solid var(--border);
-        }
-
-        .deployment-guide h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .deployment-guide ol {
-            text-align: left;
-            max-width: 600px;
-            margin: 1rem auto;
-            color: var(--text-secondary);
-        }
-
-        .deployment-guide li {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .deployment-guide code {
-            background: var(--background);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: var(--primary);
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(20px); }
-        }
-
         @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(350px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes fadeIn {
@@ -670,7 +717,6 @@
             animation: fadeIn 0.6s ease forwards;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             nav ul {
                 display: none;
@@ -679,8 +725,10 @@
                 left: 0;
                 right: 0;
                 flex-direction: column;
-                background: var(--surface);
-                border-bottom: 1px solid var(--border);
+                background: var(--glass-bg-hover);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--glass-border);
                 padding: 1rem 0;
                 gap: 0;
             }
@@ -691,7 +739,7 @@
 
             nav a {
                 padding: 1rem 2rem;
-                border-bottom: 1px solid var(--border);
+                border-bottom: 1px solid var(--glass-border);
             }
 
             .menu-toggle {
@@ -700,6 +748,10 @@
 
             .hero {
                 padding-top: 100px;
+            }
+
+            .hero-glass-panel {
+                padding: 2.5rem 1.5rem;
             }
 
             .hero h1 {
@@ -716,7 +768,7 @@
 
             .about-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 2.5rem;
             }
 
             .about-image {
@@ -740,8 +792,8 @@
             }
 
             .success-message {
-                right: 10px;
-                left: 10px;
+                right: 12px;
+                left: 12px;
                 width: auto;
             }
         }
@@ -756,7 +808,7 @@
             }
 
             .hero h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
 
             .hero .subtitle {
@@ -770,9 +822,12 @@
             .section-title {
                 font-size: 1.5rem;
             }
+
+            .about-panel {
+                padding: 1.5rem;
+            }
         }
 
-        /* Form Validation */
         .form-group.error input,
         .form-group.error textarea {
             border-color: #ef4444;
@@ -791,7 +846,12 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <div class="ambient-canvas" aria-hidden="true">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
     <nav id="navbar">
         <div class="container">
             <div class="logo">💻</div>
@@ -807,37 +867,38 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="hero-name">Emmanuel Oware Junior Asirifi</p>
-            <h1>Computer Engineer & Mobile Developer</h1>
-            <p class="subtitle">GCTU | Flutter Specialist | IoT Enthusiast</p>
-            <p class="tagline">Bridging mobile software engineering with hardware systems and scalable database architecture</p>
-            <div class="hero-ctas">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-                <a href="https://drive.google.com/file/d/1f_0tjlcAKGJlc_15GgnGcN5YduBSml-L/view?usp=sharing" class="btn btn-secondary" target="_blank">Download CV</a>
+        <div class="container">
+            <div class="hero-glass-panel">
+                <p class="hero-name">Emmanuel Oware Junior Asirifi</p>
+                <h1>Computer Engineer & Mobile Developer</h1>
+                <p class="subtitle">GCTU | Flutter Specialist | IoT Enthusiast</p>
+                <p class="tagline">Bridging mobile software engineering with hardware systems and scalable database architecture</p>
+                <div class="hero-ctas">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    <a href="https://drive.google.com/file/d/1f_0tjlcAKGJlc_15GgnGcN5YduBSml-L/view?usp=sharing" class="btn btn-secondary" target="_blank">Download CV</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I am a Computer Engineering student at Ghana Communication Technology University (GCTU) passionate about building practical, cross-platform mobile apps and embedded systems. My core focus centers on mobile development with Flutter, turning complex UI concepts into high-performance, responsive applications.</p>
-                    <p>With a foundation spanning hardware, networking, and low-level systems, I build software with architectural depth and efficiency. Whether it's designing responsive interfaces or optimizing algorithms at the assembly level, I approach every challenge with precision and creativity.</p>
-                    <p>Currently exploring the intersection of AI-assisted development, automation workflows, and scalable backend architecture to create end-to-end solutions that solve real-world problems.</p>
+            <div class="about-panel">
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I am a Computer Engineering student at Ghana Communication Technology University (GCTU) passionate about building practical, cross-platform mobile apps and embedded systems. My core focus centers on mobile development with Flutter, turning complex UI concepts into high-performance, responsive applications.</p>
+                        <p>With a foundation spanning hardware, networking, and low-level systems, I build software with architectural depth and efficiency. Whether it's designing responsive interfaces or optimizing algorithms at the assembly level, I approach every challenge with precision and creativity.</p>
+                        <p>Currently exploring the intersection of AI-assisted development, automation workflows, and scalable backend architecture to create end-to-end solutions that solve real-world problems.</p>
+                    </div>
+                    <img src="https://i.postimg.cc/Fz0G1JzG/profile.jpg" alt="Emmanuel Oware Junior Asirifi" class="about-image">
                 </div>
-                <img src="https://i.postimg.cc/Fz0G1JzG/profile.jpg" alt="Emmanuel Oware Junior Asirifi" class="about-image">
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <div class="container">
             <h2 class="section-title">Core Skills & Tech Stack</h2>
@@ -883,7 +944,6 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
@@ -932,42 +992,43 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Get in Touch</h2>
             <p class="section-subtitle">Let's collaborate on your next great project</p>
             <div class="contact-wrapper">
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                        <span class="error-message">Please enter your name</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                        <span class="error-message">Please enter a valid email</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <select id="subject" name="subject" required>
-                            <option value="">Select a subject</option>
-                            <option value="Job Offer">Job Offer</option>
-                            <option value="Internship">Internship Opportunity</option>
-                            <option value="Business Inquiry">Business Inquiry</option>
-                            <option value="Collaboration">Collaboration</option>
-                            <option value="General">General Inquiry</option>
-                        </select>
-                        <span class="error-message">Please select a subject</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                        <span class="error-message">Please enter your message</span>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+                <div class="contact-form-card">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                            <span class="error-message">Please enter your name</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                            <span class="error-message">Please enter a valid email</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="Job Offer">Job Offer</option>
+                                <option value="Internship">Internship Opportunity</option>
+                                <option value="Business Inquiry">Business Inquiry</option>
+                                <option value="Collaboration">Collaboration</option>
+                                <option value="General">General Inquiry</option>
+                            </select>
+                            <span class="error-message">Please select a subject</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                            <span class="error-message">Please enter your message</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
 
                 <div class="contact-info">
                     <h3>Contact Details</h3>
@@ -1006,24 +1067,20 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <p>&copy; 2024 Emmanuel Oware Junior Asirifi.</p>
         </div>
     </footer>
 
-    <!-- Success Message -->
     <div class="success-message" id="successMessage">
         ✓ Message sent successfully! I'll get back to you soon.
     </div>
 
     <script>
-        // Dark Mode Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
 
@@ -1043,7 +1100,6 @@
             themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
         }
 
-        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const menu = document.getElementById('menu');
 
@@ -1057,7 +1113,6 @@
             });
         });
 
-        // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1067,7 +1122,6 @@
             }
         });
 
-        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1078,14 +1132,12 @@
             });
         });
 
-        // Form Validation & Submission
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Validation
             let isValid = true;
             const formGroups = contactForm.querySelectorAll('.form-group');
             formGroups.forEach(group => {
@@ -1108,7 +1160,6 @@
 
             if (!isValid) return;
 
-            // Submit to Formspree
             const formData = new FormData(contactForm);
             try {
                 const response = await fetch('https://formspree.io/f/xaewpyyb', {
@@ -1129,8 +1180,6 @@
                     alert('Failed to send message. Please try again.');
                 }
             } catch (error) {
-                // Fallback for demonstration
-                console.log('Form submission would be sent to Formspree');
                 contactForm.reset();
                 successMessage.classList.add('show');
                 setTimeout(() => {
@@ -1139,7 +1188,6 @@
             }
         });
 
-        // Fade in elements on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1154,7 +1202,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+        document.querySelectorAll('.skill-card, .project-card, .about-panel, .contact-form-card, .contact-info').forEach(el => {
             observer.observe(el);
         });
     </script>
