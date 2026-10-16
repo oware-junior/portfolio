@@ -551,6 +551,12 @@
             margin-bottom: 0.4rem;
         }
 
+        .project .note {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.75rem;
+        }
+
         .project-art {
             aspect-ratio: 16 / 9;
             background: var(--accent-soft);
@@ -962,7 +968,7 @@
                         <span class="skill-num">01</span>
                         <h3>Mobile development</h3>
                         <ul class="tags">
-                            <li>Flutter</li><li>Dart</li><li>Firebase</li><li>Android Studio</li><li>Google Play</li>
+                            <li>Flutter</li><li>Dart</li><li>Firebase</li><li>AdMob</li><li>In-app purchases</li><li>Android Studio</li><li>Google Play</li>
                         </ul>
                     </div>
                     <div class="skill">
@@ -994,9 +1000,22 @@
             <div class="wrap">
                 <div class="section-head">
                     <h2>Projects</h2>
-                    <p>An app I've shipped, and a few areas I've been building in. Code is on my GitHub.</p>
+                    <p>Apps I've shipped, and a few areas I've been building in. Code is on my GitHub.</p>
                 </div>
                 <div class="projects-grid">
+                    <article class="project featured">
+                        <div class="project-art">
+                            <img src="images/check-wall.jpg" style="object-fit: contain; background: #05051a" alt="Check Wall banner: neon game board with glowing walls and pawns, titled Check Wall" width="1024" height="576" loading="lazy">
+                        </div>
+                        <div class="project-body">
+                            <span class="eyebrow-tag">Android game &middot; Google Play testing</span>
+                            <h3>Check Wall</h3>
+                            <p>A neon strategy game I designed and shipped: race your pawn across a 9&times;9 board and block your rival with walls. An endless campaign against computer opponents that get smarter every level, real-time online matches with a turn clock, global leaderboards, Google sign-in and a Remove Ads subscription.</p>
+                            <ul class="tags"><li>Flutter</li><li>Dart</li><li>Firebase</li><li>Realtime online play</li><li>AdMob</li><li>In-app purchases</li></ul>
+                            <p class="note">Launching publicly on Google Play soon.</p>
+                        </div>
+                    </article>
+
                     <article class="project featured">
                         <div class="project-art">
                             <img src="images/arrow-zip.jpg" alt="Arrow Zip banner: Tap. Slide. Escape., with a board of arrows" width="1024" height="576" loading="lazy">
