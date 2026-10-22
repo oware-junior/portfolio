@@ -612,7 +612,7 @@
         .shots ul {
             list-style: none;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(var(--n, 4), 1fr);
             gap: 1rem;
         }
 
@@ -627,6 +627,16 @@
 
         .shots a:hover {
             border-color: var(--highlight);
+        }
+
+        .shots video {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 9 / 16;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            background: #05051a;
         }
 
         .shots img {
@@ -1104,15 +1114,16 @@
                         <div class="project-body">
                             <span class="eyebrow-tag">Android game &middot; Google Play testing</span>
                             <h3>Check Wall</h3>
-                            <p>A neon strategy game I designed and shipped: race your pawn across a 9&times;9 board and block your rival with walls. An endless campaign against computer opponents that get smarter every level, real-time online matches with a turn clock, global leaderboards, Google sign-in and a Remove Ads subscription.</p>
+                            <p>A neon strategy game I designed and shipped: race your pawn across a 9&times;9 board and block your rival with walls. An endless campaign against computer opponents that get smarter every level, real-time online matches with a turn clock, reconnect protection and emoji reactions, global leaderboards with win/loss records, Google sign-in and a Remove Ads subscription. Runs on Android 7.0 and newer, and I ship updates from tester feedback.</p>
                             <ul class="tags"><li>Flutter</li><li>Dart</li><li>Firebase</li><li>Realtime online play</li><li>AdMob</li><li>In-app purchases</li></ul>
                             <p class="note">Launching publicly on Google Play soon.</p>
                         </div>
                     </article>
 
                     <figure class="shots">
-                        <figcaption>Check Wall on Android</figcaption>
-                        <ul>
+                        <figcaption>Check Wall on Android: trailer and screenshots</figcaption>
+                        <ul style="--n: 5">
+                            <li><video src="videos/check-wall-trailer.mp4" poster="images/check-wall-boss.jpg" controls muted playsinline preload="none" width="540" height="960" aria-label="Check Wall trailer: home screen, endless levels and a boss battle"></video></li>
                             <li><a href="images/check-wall-boss.jpg" target="_blank" rel="noopener"><img src="images/check-wall-boss.jpg" alt="Check Wall boss battle intro: You versus The Architect, chapter 1 level 10" width="540" height="960" loading="lazy"></a></li>
                             <li><a href="images/check-wall-move.jpg" target="_blank" rel="noopener"><img src="images/check-wall-move.jpg" alt="Check Wall board on your turn, with glowing cells showing where your pawn can move" width="540" height="960" loading="lazy"></a></li>
                             <li><a href="images/check-wall-wall.jpg" target="_blank" rel="noopener"><img src="images/check-wall-wall.jpg" alt="Check Wall board after a wall is placed beside the two pawns" width="540" height="960" loading="lazy"></a></li>
