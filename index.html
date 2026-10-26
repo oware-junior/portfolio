@@ -636,8 +636,12 @@
             margin-bottom: 1rem;
         }
 
-        .tiktok-wrap .tiktok-embed {
-            margin: 0;
+        .tiktok-player {
+            width: min(340px, 100%);
+            aspect-ratio: 9 / 16;
+            border: 0;
+            border-radius: var(--radius);
+            background: #000;
         }
 
         .shots video {
@@ -1135,9 +1139,7 @@
                     <figure class="shots">
                         <figcaption>Check Wall on Android: launch film from TikTok, and screenshots</figcaption>
                         <div class="tiktok-wrap">
-                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@juniorkofistudios/video/7701010970595872020" data-video-id="7701010970595872020" style="max-width: 340px; min-width: 300px;">
-                                <section><a target="_blank" rel="noopener" href="https://www.tiktok.com/@juniorkofistudios/video/7701010970595872020">Check Wall launch film on TikTok</a></section>
-                            </blockquote>
+                            <iframe class="tiktok-player" src="https://www.tiktok.com/player/v1/7701010970595872020?music_info=1&amp;description=1&amp;rel=0" title="Check Wall launch film on TikTok" allow="fullscreen; encrypted-media" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <ul>
                             <li><a href="images/check-wall-boss.jpg" target="_blank" rel="noopener"><img src="images/check-wall-boss.jpg" alt="Check Wall boss battle intro: You versus The Architect, chapter 1 level 10" width="540" height="960" loading="lazy"></a></li>
@@ -1477,6 +1479,5 @@
             });
         })();
     </script>
-    <script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
