@@ -630,22 +630,7 @@
             border-color: var(--highlight);
         }
 
-        .tiktok-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
 
-        .tiktok-player {
-            width: min(340px, 100%);
-            aspect-ratio: 9 / 16;
-            border: 0;
-            border-radius: var(--radius);
-            background: #000;
-        }
 
         .shots video {
             display: block;
@@ -1140,12 +1125,9 @@
                     </article>
 
                     <figure class="shots">
-                        <figcaption>Check Wall on Android: launch film from TikTok, and screenshots</figcaption>
-                        <div class="tiktok-wrap">
-                            <iframe class="tiktok-player" src="https://www.tiktok.com/player/v1/7701010970595872020?music_info=1&amp;description=1&amp;rel=0" title="Check Wall launch film on TikTok" allow="fullscreen; encrypted-media" allowfullscreen loading="lazy"></iframe>
-                            <a href="https://www.tiktok.com/@juniorkofistudios/video/7701010970595872020" class="text-link" target="_blank" rel="noopener noreferrer">Watch on TikTok</a>
-                        </div>
-                        <ul>
+                        <figcaption>Check Wall on Android: launch film and screenshots &middot; <a href="https://www.tiktok.com/@juniorkofistudios/video/7701010970595872020" class="text-link" target="_blank" rel="noopener noreferrer">Watch it on TikTok</a></figcaption>
+                        <ul style="--n: 5">
+                            <li><video src="videos/check-wall-launch-film.mp4" poster="images/check-wall-film.jpg" controls playsinline preload="none" width="540" height="960" aria-label="Check Wall launch film: everyday phone moments, then the game, its features and tester quotes"></video></li>
                             <li><a href="images/check-wall-boss.jpg" target="_blank" rel="noopener"><img src="images/check-wall-boss.jpg" alt="Check Wall boss battle intro: You versus The Architect, chapter 1 level 10" width="540" height="960" loading="lazy"></a></li>
                             <li><a href="images/check-wall-move.jpg" target="_blank" rel="noopener"><img src="images/check-wall-move.jpg" alt="Check Wall board on your turn, with glowing cells showing where your pawn can move" width="540" height="960" loading="lazy"></a></li>
                             <li><a href="images/check-wall-wall.jpg" target="_blank" rel="noopener"><img src="images/check-wall-wall.jpg" alt="Check Wall board after a wall is placed beside the two pawns" width="540" height="960" loading="lazy"></a></li>
