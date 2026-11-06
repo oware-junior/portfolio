@@ -1,0 +1,54 @@
+/* Shared by the game pages. Colours match the portfolio's light and dark themes. */
+:root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --ink: #0c2233;
+    --body: #3d5567;
+    --line: #d8e6ef;
+    --accent: #0b5f92;
+    --accent-hover: #0a4f7a;
+    --on-accent: #ffffff;
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    --bg: #071a2a;
+    --surface: #0d2a41;
+    --ink: #eaf5fc;
+    --body: #b5cad9;
+    --line: #1b3d57;
+    --accent: #4fb3e8;
+    --accent-hover: #7cc7ef;
+    --on-accent: #062236;
+    color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--body); font: 17px/1.65 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; font-size: 15px; }
+a { color: var(--accent); }
+
+.theme-toggle { display: inline-flex; flex: none; align-items: center; justify-content: center; width: 42px; height: 42px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); cursor: pointer; }
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle svg { width: 20px; height: 20px; }
+.theme-toggle .icon-sun, :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+header img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+h1 { color: var(--ink); font-size: clamp(38px, 8vw, 58px); line-height: 1.1; margin-top: 26px; letter-spacing: -0.01em; }
+.lead { font-size: 20px; margin-top: 10px; }
+.cta { display: inline-block; margin: 24px 0 8px; padding: 14px 26px; background: var(--accent); color: var(--on-accent); font-weight: 700; border-radius: 10px; text-decoration: none; }
+.cta:hover { background: var(--accent-hover); }
+.sub { font-size: 15px; }
+section { margin-top: 48px; }
+h2 { color: var(--ink); font-size: 26px; line-height: 1.25; margin-bottom: 12px; }
+h3 { color: var(--ink); font-size: 18px; margin-top: 20px; }
+ul, ol { padding-left: 22px; }
+li { margin-top: 6px; }
+.shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; list-style: none; padding: 0; }
+.shots li { margin: 0; }
+.shots img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+footer { margin-top: 56px; padding: 24px 0 40px; border-top: 1px solid var(--line); font-size: 15px; }
+footer a { margin-right: 16px; display: inline-block; }
+@media (max-width: 600px) { .shots { grid-template-columns: repeat(2, 1fr); } }
